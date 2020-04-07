@@ -38,7 +38,7 @@ export class ChatService {
   }
 
   cargarMensajes() {
-    this.itemsCollection = this.afs.collection<Mensaje>('chats', ref => ref.orderBy('fecha', 'desc').limit(5));
+    this.itemsCollection = this.afs.collection<Mensaje>('chats', ref => ref.orderBy('fecha', 'desc').limit(1000));
 
     return this.itemsCollection.valueChanges()
     // poner el pipe
@@ -66,7 +66,8 @@ export class ChatService {
           nombre: this.usuario.nombre,
           mensaje: texto,
           fecha: new Date().getTime(),
-          uid: this.usuario.uid
+          uid: this.usuario.uid,
+          photo: this.usuario.photo
       };
 
       return this.itemsCollection.add(mensaje);

@@ -1,26 +1,61 @@
-<h1>Chat</h1>
+<div class="container">
+<div class="messaging" >
+      <div class="inbox_msg">
+        <div class="mesgs">
+          <div class="msg_history" id="app-mensajes">
 
-<hr>
+            <div *ngFor="let chat of _cs.chats">
 
-<div class="app-mensajes" id="app-mensajes">
+              <div class="incoming_msg" *ngIf="_cs.usuario.uid !== chat.uid">
+                <div class="incoming_msg_img"> <img src="{{ chat.photo }}" alt="sunil"> </div>
+                <div class="received_msg">
+                  <div class="received_withd_msg">
+                    <p>{{ chat.mensaje }}</p>
+                    <span class="time_date">{{ chat.nombre }} | {{chat.fecha | date:'d MMM'}} {{chat.fecha | date:'shortTime'}}</span></div>
+                </div>
+              </div>
 
-  <div *ngFor="let chat of _cs.chats"
-       [ngClass]="{'text-right': _cs.usuario.uid === chat.uid }">
-    <span class="badge"
-          [ngClass]="{'badge-primary': _cs.usuario.uid === chat.uid,
-                      'badge-success': _cs.usuario.uid !== chat.uid }">
-      Leandro
-    </span>
-    <p>
-       {{ chat.mensaje }}
-    </p>
-  </div>
 
-</div>
+              <div class="outgoing_msg" *ngIf="_cs.usuario.uid === chat.uid">
+                <div class="outgoing_msg_img"> <img src="{{ chat.photo }}" alt="sunil"> </div>
+                <div class="sent_msg">
+                  <p>{{ chat.mensaje }}</p>
+                  <span class="time_date">{{ chat.nombre }} | {{chat.fecha | date:'d MMM'}} {{chat.fecha | date:'shortTime'}}</span> </div>
+              </div>
 
-<input type="text"
+            </div>
+
+          </div>
+          <div class="type_msg">
+
+            <div class="input_msg_write">
+
+              <input type="text"
+                     class="form-control text-mensaje write_msg"
+                     name="mensaje"
+                     placeholder="Enviar mensaje"
+                     [(ngModel)]="mensaje"
+                     (keyup.enter)="enviarMensaje()"/>
+
+              <button class="msg_send_btn"
+                      type="button"
+                      (click)="enviarMensaje()">
+                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- <input type="text"
        name="mensaje"
        placeholder="Enviar mensaje"
        class="form-control text-mensaje"
        [(ngModel)]="mensaje"
        (keyup.enter)="enviarMensaje()">
+ -->
+
+
